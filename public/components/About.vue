@@ -1,25 +1,16 @@
 <template>
   <div id="app" class="app-content">
     <div class="row align-items-center justify-content-md-center h-100">
-      <div class="col-4">
-        <div id="flash_alert" ref="flash_alert" v-show="toggle" class="alert alert-success animated flipInX" role="alert">
-          Te has registrado correctamente!
-        </div>
+      <div class="col-5">
         <div class="jumbotron">
-          <div class="form-group">
-            <label for="username">Introduce tu nombre de usuario</label>
-            <input type="text" class="form-control" v-model="username" aria-describedby="text" placeholder="Username">
-          </div>
-          <div class="form-group">
-            <label for="email">Introduce tu email</label>
-            <input type="email" class="form-control" v-model="email" aria-describedby="email" placeholder="Email">
-            <small id="emailHelp" class="form-text text-muted">No compartiremos tu email con nadie.</small>
-          </div>
-          <div class="form-group">
-            <label for="password">Introduce tu contraseña</label>
-            <input type="password" class="form-control" v-model="password" placeholder="Password">
-          </div>
-          <button type="submit" class="btn btn-info btn-lg btn-block" v-on:click="signUp()">Registrarse</button>
+          <h1 class="display-3">About</h1>
+          <p class="lead">Página creada por Manel Méndez</p>
+          <hr class="my-4">
+          <p>Este proyecto ha sido creado para probar el framework de front-end VueJS junto al back-end NodeJS.</p>
+          <hr class="my-4">
+          <p class="copyright row align-items-center justify-content-md-center h-100">
+            Copyright (c) 2017 Manel Méndez. MIT License.
+          </p>
         </div>
       </div>
     </div>
@@ -76,5 +67,8 @@
 }
 .jumbotron {
   background-color: rgba(355, 355, 355, 0.6);
+}
+.copyright {
+  font-size: 10px;
 }
 </style>

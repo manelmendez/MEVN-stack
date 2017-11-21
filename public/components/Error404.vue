@@ -2,24 +2,14 @@
   <div id="app" class="app-content">
     <div class="row align-items-center justify-content-md-center h-100">
       <div class="col-4">
-        <div id="flash_alert" ref="flash_alert" v-show="toggle" class="alert alert-success animated flipInX" role="alert">
-          Te has registrado correctamente!
-        </div>
         <div class="jumbotron">
-          <div class="form-group">
-            <label for="username">Introduce tu nombre de usuario</label>
-            <input type="text" class="form-control" v-model="username" aria-describedby="text" placeholder="Username">
-          </div>
-          <div class="form-group">
-            <label for="email">Introduce tu email</label>
-            <input type="email" class="form-control" v-model="email" aria-describedby="email" placeholder="Email">
-            <small id="emailHelp" class="form-text text-muted">No compartiremos tu email con nadie.</small>
-          </div>
-          <div class="form-group">
-            <label for="password">Introduce tu contraseña</label>
-            <input type="password" class="form-control" v-model="password" placeholder="Password">
-          </div>
-          <button type="submit" class="btn btn-info btn-lg btn-block" v-on:click="signUp()">Registrarse</button>
+          <h1 class="display-3">Error 404</h1>
+          <p class="lead">Página no encontrada</p>
+          <hr class="my-4">
+          <p>La página que has solicitado no existe.</p>
+          <p class="lead">
+            <a class="btn btn-primary btn-lg" href="/" role="button">Ir al índice</a>
+          </p>
         </div>
       </div>
     </div>

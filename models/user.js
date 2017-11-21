@@ -14,8 +14,8 @@ const UserSchema = new Schema({
   name: String,
   avatar: String,
   password: {
-    type: String,
-    select: false
+    type: String
+    //select: false       if I dont want to get the pw when Find() on database
   },
   signupDate: {
     type: Date,
@@ -24,7 +24,7 @@ const UserSchema = new Schema({
   lastLogin: Date
 })
 
-UserSchema.pre('save', (next) => {
+UserSchema.pre('save', function (next) {
   let user = this
   //if (!user.isModified('password')) return next()
 

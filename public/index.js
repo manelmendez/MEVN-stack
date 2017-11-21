@@ -8,5 +8,10 @@ Vue.use(vueResource)
 new Vue({
   el: '#app',
   router,
-  components: { Index }
+  components: { Index },
+  methods: {
+    methodName() {
+      
+    }
+  }
 })
