@@ -1,15 +1,17 @@
 <template>
   <div id="app" class="app-content">
-    <div class="row align-items-center justify-content-md-center h-100">
-      <div class="col-4">
-        <div class="jumbotron">
-          <h1 class="display-3">Error 404</h1>
-          <p class="lead">Página no encontrada</p>
-          <hr class="my-4">
-          <p>La página que has solicitado no existe.</p>
-          <p class="lead">
-            <a class="btn btn-primary btn-lg" href="/" role="button">Ir al índice</a>
-          </p>
+    <div class="container">  
+      <div class="row justify-content-md-center">
+        <div class="col-6 elements">
+          <div class="block">
+            <h1 class="display-3">Error 404</h1>
+            <p class="lead">Página no encontrada</p>
+            <hr class="my-4">
+            <p>La página que has solicitado no existe.</p>
+            <p class="lead">
+              <a class="btn btn-primary btn-lg" href="/" role="button">Ir al índice</a>
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -64,7 +66,15 @@
   align-items: center;
   align-content: center;
 }
-.jumbotron {
+.block {
   background-color: rgba(355, 355, 355, 0.6);
+  border-radius: 5%;
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-top: 15%;
+  padding-bottom: 15%;
+}
+.elements {
+  margin-top: 5%;
 }
 </style>

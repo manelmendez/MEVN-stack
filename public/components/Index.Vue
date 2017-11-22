@@ -1,12 +1,14 @@
 <template>
-  <div id="app" class="app-content h-100">
+  <div id="app" class="app-content">
+    <div class="container h-100">
       <div class="row align-items-center h-100">
-        <div class="col text-center">
+        <div class="col-12 text-center">
         <router-link :to="{path: '/signup'}"><button id="signup" class="btn btn-outline-primary">{{ signup }}</button></router-link>
         <router-link :to="{path: '/signin'}"><button id="signin" class="btn btn-outline-success">{{ signin }}</button></router-link>
         <p></p>
         </div>
       </div>
+    </div>
   </div>
 </template>
 

@@ -1,23 +1,25 @@
 <template>
   <div id="app" class="app-content">
-    <div class="row align-items-center justify-content-md-center h-100">
-      <div class="col-4">
-        <div id="flash_alert" ref="flash_alert" v-show="toggle" class="alert alert-success animated flipInX" role="alert">
-          Te has logueado correctamente!
-        </div>
-        <div id="negative_flash_alert" ref="negative_flash_alert" v-show="toggle_negative" class="alert alert-danger animated flipInX" role="alert" v-html="negative_message">
-        </div>
-        <div class="jumbotron">
-          <div class="form-group">
-            <label for="email">Introduce tu email</label>
-            <input type="email" class="form-control" v-model="email" aria-describedby="email" placeholder="Email">
-            <small id="emailHelp" class="form-text text-muted">No compartiremos tu email con nadie.</small>
+    <div class="container">
+      <div class="row justify-content-md-center">
+        <div class="col-4 elements">
+          <div id="flash_alert" ref="flash_alert" v-show="toggle" class="alert alert-success animated flipInX" role="alert">
+            Te has logueado correctamente!
           </div>
-          <div class="form-group">
-            <label for="password">Introduce tu contraseña</label>
-            <input type="password" class="form-control" v-model="password" placeholder="Password">
+          <div id="negative_flash_alert" ref="negative_flash_alert" v-show="toggle_negative" class="alert alert-danger animated flipInX" role="alert" v-html="negative_message">
           </div>
-          <button type="submit" class="btn btn-info btn-lg btn-block" v-on:click="signIn()">Iniciar sesión</button>
+          <div class="block" :class="{'border border-danger': toggle_negative, 'border border-success': toggle}">
+            <div class="form-group">
+              <label for="email">Introduce tu email</label>
+              <input type="email" class="form-control" v-model="email" aria-describedby="email" placeholder="Email">
+              <small id="emailHelp" class="form-text text-muted">No compartiremos tu email con nadie.</small>
+            </div>
+            <div class="form-group">
+              <label for="password">Introduce tu contraseña</label>
+              <input type="password" class="form-control" v-model="password" placeholder="Password">
+            </div>
+            <button type="submit" class="btn btn-info btn-lg btn-block" v-on:click="signIn()">Iniciar sesión</button>
+          </div>
         </div>
       </div>
     </div>
@@ -56,15 +58,8 @@ export default {
       })
       .catch(error => {
         console.log(error.status);
-        if (error.status === 404) {
-          this.negative_message = "El usuario no existe."
-          this.toggle_negative = true
-          setTimeout(() => {
-            this.toggle_negative = false
-          }, 4000);
-        }
-        else if (error.status === 403) {
-          this.negative_message = "La contraseña es incorrecta."
+        if (error.status === 401) {
+          this.negative_message = "Algunos de los datos introducidos no son correctos."
           this.toggle_negative = true
           setTimeout(() => {
             this.toggle_negative = false
@@ -100,7 +95,15 @@ export default {
   align-items: center;
   align-content: center;
 }
-.jumbotron {
+.block {
   background-color: rgba(355, 355, 355, 0.6);
+  border-radius: 5%;
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-top: 15%;
+  padding-bottom: 15%;
+}
+.elements {
+  margin-top: 5%;
 }
 </style>

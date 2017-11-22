@@ -34,22 +34,24 @@ function signIn(req, res) {
     }
     if (!user[0]) {
       console.log("No existe el usuario")
-      return res.status(404).send({
-        message: 'No existe el usuario'
+      return res.status(401).send({
+        message: 'Algunos de los datos introducidos son incorrectos.'
       })
     }
     
     if (user[0]) {
       req.user = user[0]
       if (bcrypt.compareSync(req.body.password, user[0].password)) {
+        console.log(`${user[0].email} se ha logueado correctamente`);
         res.status(200).send({
           message: 'Te has logueado correctamente',
           token: tokenServices.createToken(user)
         })
       }
       else {
-        return res.status(403).send({
-          message: 'UNAUTHORIZED. Contraseña incorrecta.'
+        console.log("UNAUTHORIZED. Contraseña incorrecta.")
+        return res.status(401).send({
+          message: 'Algunos de los datos introducidos son incorrectos.'
         })
       }
     }
