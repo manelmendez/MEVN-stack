@@ -40,6 +40,7 @@ export default {
   },
   methods: {
     signIn() {
+      const authUser = {}
       let body = {
         email: this.email,
         password: this.password
@@ -51,8 +52,11 @@ export default {
       .then(response => {
         if(response.status === 200) {
           this.toggle= true
+          authUser.data = response.data.user
+          authUser.token = response.data.token
+          window.localStorage.setItem('authUser', JSON.stringify(authUser))
           setTimeout(() => {
-          this.$router.push({ path: "/404" })
+          this.$router.push({ path: "/mainpage" })
           }, 2000);
         }
       })

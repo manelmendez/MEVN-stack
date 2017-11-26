@@ -10,15 +10,31 @@ function signUp(req, res) {
     name: req.body.name,
     password: req.body.password
   })
+  User.findOne({ email: user.email }, function(err, existingUser) {
+    if (err) {
+      console.log(`Error: ${err}`)
+      return res.status(500).send({
+        message: `Error al registrar usuario: ${err}`
+      })
+    }
+    if (!existingUser) {
+      console.log("No existe usuario con ese email, registrando...")
+      user.save((err) => {
+        if (err) return res.status(500).send({
+          message: `Error al crear el usuario: ${err}`
+        })
 
-  user.save((err) => {
-    if (err) return res.status(500).send({
-      message: `Error al crear el usuario: ${err}`
-    })
-
-    return res.status(200).send({
-      token: tokenServices.createToken(user)
-    })
+        return res.status(200).send({
+          token: tokenServices.createToken(user)
+        })
+      })
+    }
+    if (existingUser) {
+      console.log("Este email ya está registrado, no se puede continuar.")
+      return res.status(202).send({
+        message: `Error. Email ya registrado`
+      })
+    }
   })
 }
 
@@ -45,7 +61,8 @@ function signIn(req, res) {
         console.log(`${user[0].email} se ha logueado correctamente`);
         res.status(200).send({
           message: 'Te has logueado correctamente',
-          token: tokenServices.createToken(user)
+          token: tokenServices.createToken(user),
+          user: user[0]
         })
       }
       else {

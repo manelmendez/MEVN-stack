@@ -1,12 +1,14 @@
 <template>
-  <div id="app" class="app-content">
+  <div class="app-content">
     <div class="container">
       <div class="row justify-content-md-center">
         <div class="col-4 elements">
           <div id="flash_alert" ref="flash_alert" v-show="toggle" class="alert alert-success animated flipInX" role="alert">
             Te has registrado correctamente!
           </div>
-          <div class="block">
+          <div id="negative_flash_alert" ref="negative_flash_alert" v-show="toggle_negative" class="alert alert-danger animated flipInX" role="alert" v-html="negative_message">
+          </div>
+          <div class="block" :class="{'border border-danger': toggle_negative, 'border border-success': toggle}">
             <div class="form-group">
               <label for="username">Introduce tu nombre de usuario</label>
               <input type="text" class="form-control" v-model="username" aria-describedby="text" placeholder="Username">
@@ -36,7 +38,9 @@
       username: '',
       email: '',
       password: '',
-      toggle: false
+      toggle: false,
+      toggle_negative: false,
+      negative_message: "La contraseña es incorrecta."
       }
     },
     methods: {
@@ -57,9 +61,37 @@
             this.$router.push({ path: "/" })
             }, 2000);
           }
+          else if(response.status === 202) {
+            this.negative_message = "Este email ya está registrado."
+            this.toggle_negative = true            
+            setTimeout(() => {
+              this.toggle_negative = false            
+            }, 4000);
+          }
         })
         .catch(error => {
-          console.log(error)
+          console.log(error.status);
+          if (error.status === 401) {
+            this.negative_message = "Algunos de los datos introducidos no son correctos."
+            this.toggle_negative = true
+            setTimeout(() => {
+              this.toggle_negative = false
+            }, 4000);
+          }
+          else if (error.status === 500) {
+            this.negative_message = "El servidor no responde."
+            this.toggle_negative = true
+            setTimeout(() => {
+              this.toggle_negative = false
+            }, 4000);
+          }
+          else {
+            this.negative_message = "Error en el registro."
+            this.toggle_negative = true
+            setTimeout(() => {
+              this.toggle_negative = false
+            }, 4000);
+          }
         })
       }
     }
