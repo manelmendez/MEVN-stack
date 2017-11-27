@@ -6,14 +6,8 @@ const auth = require('../middlewares/auth')
 const api = express.Router()
 
 // AUTH
-api.get('/private', auth, (req, res) => {
-  res.status(200).send({
-    message: 'Tienes acceso'
-  })
-})
-
+api.get('/private', auth)
 // USER
-
 api.post('/signup', userCtrl.signUp)
 api.post('/signin', userCtrl.signIn)
 

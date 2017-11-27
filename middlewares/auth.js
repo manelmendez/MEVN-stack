@@ -9,15 +9,18 @@ function isAuth(req, res, next) {
     })
   }
 
-  const token = req.headers.authorization.split(' ')[1]
-
+  const token = req.headers.authorization
   tokenServices.decodeToken(token)
     .then(response => {
       req.user = response
-      next()
+      return res.status(200).send({
+        message: 'Tienes acceso'
+      })
     })
     .catch(response => {
-      res.status(response.status)
+      return res.status(response.status).send({
+        message: 'No tienes autorización'
+      })
     })
 }
 

@@ -5,11 +5,13 @@ import SignUp from '../components/SignUp.vue'
 import MainPage from '../components/MainPage.vue'
 import About from '../components/About.vue'
 import Error404 from '../components/Error404.vue'
-import Router from 'vue-router'
+import VueRouter from 'vue-router'
+import VueResource from 'vue-resource'
 
-Vue.use(Router)
+Vue.use(VueRouter)
+Vue.use(VueResource)
 
-const router = new Router({
+const router = new VueRouter({
   mode: 'history',
   routes: [
     {
@@ -53,11 +55,41 @@ router.beforeEach((to, from, next) => {
       next({name:'Index'})
     }
     else {
+      isAuth(authUser)
       next()
     }
   }else {
     next()
   }
 })
-
+function isAuth(authUser) {
+  let body = authUser.data
+  let headers = {
+    'Authorization': authUser.token
+  }
+  let options = {
+    body,
+    headers
+  }
+  Vue.http.get('http://localhost:3000/api/private', options)
+  .then(response => {
+    if(response.status === 200) {
+      console.log("Autorizado")
+    }
+  })
+  .catch(error => {
+    if (error.status === 403) {
+      console.log("No estás autorizado");
+      router.push({ path: "/" })
+    }
+    else if (error.status === 401) {
+      console.log("No estás autorizado");
+      router.push({ path: "/" })
+    }
+    else if (error.status === 500) {
+      console.log("No estás autorizado");
+      router.push({ path: "/" })
+    }
+  })
+}
 export default router

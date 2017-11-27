@@ -61,7 +61,7 @@ function signIn(req, res) {
         console.log(`${user[0].email} se ha logueado correctamente`);
         res.status(200).send({
           message: 'Te has logueado correctamente',
-          token: tokenServices.createToken(user),
+          token: tokenServices.createToken(user[0]),
           user: user[0]
         })
       }
