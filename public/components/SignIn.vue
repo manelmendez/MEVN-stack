@@ -56,7 +56,9 @@ export default {
           authUser.token = response.data.token
           window.localStorage.setItem('authUser', JSON.stringify(authUser))
           setTimeout(() => {
-          this.$router.push({ path: "/mainpage" })
+            this.$router.push({ 
+              name: "MainPage" //si uso path: "/mainpage" el params (props) no funciona -- params: { user: response.data.user } --
+            })
           }, 2000);
         }
       })

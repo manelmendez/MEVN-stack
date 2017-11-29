@@ -33,6 +33,7 @@ const router = new VueRouter({
       path: '/mainpage',
       name: 'MainPage',
       component: MainPage,
+      props: true,
       meta: { requiresAuth: true }
     },
     {
