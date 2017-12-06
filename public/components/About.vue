@@ -20,41 +20,7 @@
 </template>
 
 <script>
-  export default {
-    name: 'app',
-    data(){
-      return {
-      username: '',
-      email: '',
-      password: '',
-      toggle: false
-      }
-    },
-    methods: {
-      signUp() {
-        let body = {
-          name: this.username,
-          email: this.email,
-          password: this.password
-        }
-        let headers = {
-          'Content-Type': 'application/json'
-        }
-        this.$http.post('http://localhost:3000/api/signup', body, headers)
-        .then(response => {
-          if(response.status === 200) {
-            this.toggle= true
-            setTimeout(() => {
-            this.$router.push({ path: "/" })
-            }, 2000);
-          }
-        })
-        .catch(error => {
-          console.log(error)
-        })
-      }
-    }
-  }
+
 </script>
 
 <style>

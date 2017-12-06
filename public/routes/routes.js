@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Index from '../components/Index.vue'
+import Welcome from '../components/Welcome.vue'
 import SignIn from '../components/SignIn.vue'
 import SignUp from '../components/SignUp.vue'
 import MainPage from '../components/MainPage.vue'
@@ -16,8 +16,8 @@ const router = new VueRouter({
   routes: [
     {
       path: '/',
-      name: 'Index',
-      component: Index
+      name: 'Welcome',
+      component: Welcome
     },
 		{
       path: '/signin',

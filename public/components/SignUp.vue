@@ -58,7 +58,7 @@
           if(response.status === 200) {
             this.toggle= true
             setTimeout(() => {
-            this.$router.push({ name: "Index" })
+            this.$router.push({ name: "Welcome" })
             }, 2000);
           }
           else if(response.status === 202) {
