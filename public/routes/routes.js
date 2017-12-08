@@ -17,17 +17,20 @@ const router = new VueRouter({
     {
       path: '/',
       name: 'Welcome',
-      component: Welcome
+      component: Welcome,
+      meta: { onceLogged: true }
     },
 		{
       path: '/signin',
       name: 'SignIn',
-      component: SignIn
+      component: SignIn,
+      meta: { onceLogged: true }
     },
     {
       path: '/signup',
       name: 'SignUp',
-      component: SignUp
+      component: SignUp,
+      meta: { onceLogged: true }
     },
     {
       path: '/mainpage',
@@ -45,21 +48,41 @@ const router = new VueRouter({
       path: '/404',
       name: 'Error404',
       component: Error404
+    },
+    {
+      path: '*',
+      name: '404',
+      component: Error404
     }
   ]
 })
-
+/**
+ * Function to check some things before redirect to a page
+ * 
+ */
 router.beforeEach((to, from, next) => {
+  // method to check if user needs to be logged to access a page
   if(to.meta.requiresAuth) {
     const authUser = JSON.parse(window.localStorage.getItem('authUser'))
     if(!authUser || !authUser.token) {
-      next({name:'Index'})
+      next({name:'Welcome'})
     }
     else {
       isAuth(authUser)
       next()
     }
-  }else {
+  }
+  // method to not allow a user to go to certain pages once logged
+  else if (to.meta.onceLogged) {
+    const authUser = JSON.parse(window.localStorage.getItem('authUser'))
+    if(authUser) {
+      next({name:'MainPage'})
+    }
+    else {
+      next()
+    }
+  }
+  else {
     next()
   }
 })
