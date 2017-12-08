@@ -24,13 +24,13 @@ const UserSchema = new Schema({
   lastLogin: Date
 })
 
-UserSchema.pre('save', function (next) {
+UserSchema.pre('save', function(next) {
   let user = this
   //if (!user.isModified('password')) return next()
-  
+
   //add avatar to User
   user.avatar = user.gravatar();
-  
+
   bcrypt.genSalt(10, (err, salt) => {
     if (err) return next(err)
 
@@ -43,11 +43,21 @@ UserSchema.pre('save', function (next) {
   })
 })
 
+UserSchema.post('save', function() {
+  let user = this
+  console.log("Usuario " + user.name + " registrado correctamente con el email: " + user.email);
+})
+
 UserSchema.methods.gravatar = function() {
   if (!this.email) return `https://gravatar.com/avatar/?s=200&d=retro`
 
   const md5 = crypto.createHash('md5').update(this.email).digest('hex')
   return `https://gravatar.com/avatar/${md5}?s=200&d=retro`
 }
+
+UserSchema.statics.loginDate = function loginDate(id, callback) {
+   return this.findByIdAndUpdate(id, { $set : { 'lastLogin' : Date.now() }}, { new : true }, callback);
+};
+
 
 module.exports = mongoose.model('User', UserSchema)
