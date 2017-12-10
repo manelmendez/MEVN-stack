@@ -125,9 +125,38 @@ function saveNoteToUser(noteId, userId) {
     }
   })
 }
+function getUser(req, res) {
+  let userId = req.body.userId
+  //search user on DB
+  User.findById(userId, (err, user) => {
+    // case if there is any problem in search
+    if (err) {
+      console.log(`Error: ${err}`)
+      return res.status(500).send({
+        message: `Error al buscar: ${err}`
+      })
+    }
+    // case if user is not found on DB
+    if (!user) {
+      console.log("No existe el usuario")
+      return res.status(401).send({
+        message: 'Algunos de los datos introducidos son incorrectos.'
+      })
+    }
+    // case if user found
+    if (user) {
+      // send user
+      res.status(200).send({
+        message: 'Datos obtenidos correctamente',
+        user: user
+      })
+    }
+  })
+}
 
 module.exports = {
   signUp,
   signIn,
-  saveNoteToUser
+  saveNoteToUser,
+  getUser
 }
