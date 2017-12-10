@@ -87,7 +87,7 @@ router.beforeEach((to, from, next) => {
   }
 })
 function isAuth(authUser) {
-  let body = authUser.data
+  let body = authUser.userId
   let headers = {
     'Authorization': authUser.token
   }
@@ -104,16 +104,14 @@ function isAuth(authUser) {
   .catch(error => {
     if (error.status === 403) {
       console.log("No estás autorizado");
-      router.push({ path: "/" })
     }
     else if (error.status === 401) {
       console.log("No estás autorizado");
-      router.push({ path: "/" })
     }
     else if (error.status === 500) {
       console.log("No estás autorizado");
-      router.push({ path: "/" })
     }
+    router.push({ path: "/" })
   })
 }
 export default router

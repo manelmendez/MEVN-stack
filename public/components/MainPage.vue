@@ -73,18 +73,45 @@ export default {
   data(){
     return {
       toggle: false,
-      user: JSON.parse(window.localStorage.getItem('authUser')).data,
+      authUser: JSON.parse(window.localStorage.getItem('authUser')),
       noteList:[],
       newTitle: "",
-      newDescription: ""
+      newDescription: "",
+      user= ""
     }
   },
   methods:{
+    getUser: function() {
+      let body = {
+        userId: this.authUser.userId
+      }
+      let headers = {
+        'Content-Type': 'application/json'
+      }
+      this.$http.post('http://localhost:3000/api/getUser', body, headers)
+      .then((response) => {
+        this.user = response.user
+        console.log(this.user)
+      })
+    }
     getNotes: function() {
-      //  this.$http.get('http://localhost:3000/api/getNotes', body, headers)
-      if (this.noteList.length>0) {
-        this.toggle=true;
-        console.log(this.noteList);
+      console.log(this.user);
+      let body = {
+        notes: this.user.notes
+      }
+      let headers = {
+        'Content-Type': 'application/json'
+      }
+      console.log(body.notes);
+      if(body.notes) {
+        this.$http.post('http://localhost:3000/api/getNotes', body, headers)
+        .then(response => {
+          this.noteList=response.notes
+          if (this.noteList.length>0) {
+            this.toggle=true;
+            console.log(this.noteList);
+          }
+        })
       }
     },
     addNote: function() {
@@ -92,21 +119,37 @@ export default {
       let description = this.newDescription
       // comprueva si no estan los campos vacios
       if ((title)&&(description)) {
-        // añade los campos a la lista de notas
-        this.noteList.push({
-          id: noteList.length + 1,
+        let body = {
           title: title,
-          description: description
-        });
-        //Reset newTask to an empty string so the input field is cleared
-        this.newTitle = ""
-        this.newDescription = ""
-        if (this.noteList.length>0) {
-          this.toggle = true;
+          description: description,
+          userId: this.user._id
         }
+        let headers = {
+          'Content-Type': 'application/json'
+        }
+        console.log(body);
+        this.$http.post('http://localhost:3000/api/saveNote', body, headers)
+        .then(response => {
+          // añade los campos a la lista de notas
+          this.noteList.push({
+            id: response.id,
+            title: title,
+            description: description
+          });
+          // reset note to an empty string so the input field is cleared
+          this.newTitle = ""
+          this.newDescription = ""
+          if (this.noteList.length>0) {
+            this.toggle = true;
+          }
+        })
       }
       console.log(this.noteList);
     }
+ }
+ beforeMount() {
+   //do something before mounting vue instance
+    this.getUser()
  },
  mounted(){
     this.getNotes()
