@@ -21,9 +21,14 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now()
   },
-  lastLogin: Date
+  lastLogin: Date,
+  notes: Array
 })
 
+/**
+ * Function that do some things before saving user in DB
+ *
+ */
 UserSchema.pre('save', function(next) {
   let user = this
   //if (!user.isModified('password')) return next()
@@ -43,11 +48,19 @@ UserSchema.pre('save', function(next) {
   })
 })
 
+/**
+ * Function that do some things after saving user in DB
+ *
+ */
 UserSchema.post('save', function() {
   let user = this
   console.log("Usuario " + user.name + " registrado correctamente con el email: " + user.email);
 })
 
+/**
+ * Function adds an avatar to a user
+ *
+ */
 UserSchema.methods.gravatar = function() {
   if (!this.email) return `https://gravatar.com/avatar/?s=200&d=retro`
 
@@ -55,8 +68,20 @@ UserSchema.methods.gravatar = function() {
   return `https://gravatar.com/avatar/${md5}?s=200&d=retro`
 }
 
+/**
+ * Function that set a loginDate to a user who sign in the web
+ *
+ */
 UserSchema.statics.loginDate = function loginDate(id, callback) {
    return this.findByIdAndUpdate(id, { $set : { 'lastLogin' : Date.now() }}, { new : true }, callback);
+};
+
+/**
+ * Function that save a new note to a user
+ *
+ */
+UserSchema.statics.saveNote = function saveNote(id, noteId, callback) {
+   return this.findByIdAndUpdate(id, { $push : { 'notes' : noteId }}, callback);
 };
 
 

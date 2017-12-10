@@ -96,8 +96,38 @@ function signIn(req, res) {
     }
   })
 }
+function saveNoteToUser(noteId, userId) {
+  // search for user in DB
+  User.findById(userId, (err, user) => {
+    // case if there is any problem in search
+    if (err) {
+      console.log(`Error: ${err}`)
+      return ({
+        message: `Error al guardar nota: ${err}`
+      })
+    }
+    // case if user is not found on DB
+    if (!user) {
+      console.log("No existe el usuario")
+      return ({
+        message: 'Algunos de los datos introducidos son incorrectos.'
+      })
+    }
+    // case if user found
+    if (user) {
+      // setting new note to user array on DB
+      User.saveNote(user.id, noteId, function(err, userUpdated) {
+        if(err) return console.log(err);
+        console.log(userUpdated)
+        return userUpdated
+      });
+      
+    }
+  })
+}
 
 module.exports = {
   signUp,
-  signIn
+  signIn,
+  saveNoteToUser
 }
