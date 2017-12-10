@@ -1,6 +1,6 @@
 <template>
   <div class="app-content">
-    <div class="container">  
+    <div class="container-fluid">  
       <div class="row justify-content-md-center">
         <div class="col-6 elements">
           <div class="block">
@@ -27,7 +27,7 @@
   background:url(../assets/images/wallpaper.jpg);
   background-size:cover;
   width: 100%;
-  height:100%;
+  min-height:100%;
   position:fixed;
   align-items: center;
   align-content: center;

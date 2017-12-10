@@ -1,6 +1,6 @@
 <template>
   <div class="app-content">
-    <div class="container h-100">
+    <div class="container-fluid h-100">
       <div class="row align-items-center h-100">
         <div class="col-12 text-center">
         <router-link :to="{path: '/signup'}"><button id="signup" class="btn btn-outline-primary">{{ signup }}</button></router-link>
@@ -31,12 +31,13 @@
   background:url(../assets/images/wallpaper.jpg);
   background-size:cover;
   width: 100%;
-  height:100%;
+  min-height:100%;
+  height: 100%;
   position:fixed;
   align-items: center;
   align-content: center;
 }
 #signup{
-  margin-right: 10px
+  margin-right: 10px;
 }
 </style>
