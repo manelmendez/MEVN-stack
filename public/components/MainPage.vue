@@ -18,8 +18,8 @@
                 <p>No hay notas</p>
               </div>
               <ul id="noteList" class="list-group" v-show="toggle">
-                <li class="list-group-item" data-toggle="collapse"v-for="note in noteList" :data-target='"#"+ note.id'><b>{{ note.title }}</b>
-                  <div class="collapse" :id="note.id">
+                <li class="list-group-item" data-toggle="collapse"v-for="note in noteList" :data-target='"#"+ note._id'><b>{{ note.title }}</b>
+                  <div class="collapse" :id="note._id">
                     <div class="card card-body">
                       {{ note.description }}                  
                     </div>
@@ -77,42 +77,39 @@ export default {
       noteList:[],
       newTitle: "",
       newDescription: "",
-      user= ""
+      user: ""
     }
   },
   methods:{
     getUser: function() {
       let body = {
-        userId: this.authUser.userId
+        userId: this.authUser.id
       }
       let headers = {
         'Content-Type': 'application/json'
       }
       this.$http.post('http://localhost:3000/api/getUser', body, headers)
       .then((response) => {
-        this.user = response.user
-        console.log(this.user)
+        this.user = response.body.user
       })
-    }
+    },
     getNotes: function() {
-      console.log(this.user);
       let body = {
-        notes: this.user.notes
+        userId: this.authUser.id
       }
       let headers = {
         'Content-Type': 'application/json'
       }
-      console.log(body.notes);
-      if(body.notes) {
-        this.$http.post('http://localhost:3000/api/getNotes', body, headers)
-        .then(response => {
-          this.noteList=response.notes
-          if (this.noteList.length>0) {
-            this.toggle=true;
-            console.log(this.noteList);
-          }
-        })
-      }
+      this.$http.post('http://localhost:3000/api/getNotes', body, headers)
+      .then(response => {
+        this.noteList=response.body.notes
+        if ((this.noteList!=null)&&(this.noteList.length>0)) {
+          this.toggle=true;
+        }
+      })
+      .catch((err) => {
+        
+      })
     },
     addNote: function() {
       let title = this.newTitle.trim()
@@ -127,12 +124,11 @@ export default {
         let headers = {
           'Content-Type': 'application/json'
         }
-        console.log(body);
         this.$http.post('http://localhost:3000/api/saveNote', body, headers)
         .then(response => {
           // añade los campos a la lista de notas
           this.noteList.push({
-            id: response.id,
+            _id: response.body.note._id,
             title: title,
             description: description
           });
@@ -144,16 +140,42 @@ export default {
           }
         })
       }
-      console.log(this.noteList);
     }
- }
- beforeMount() {
-   //do something before mounting vue instance
+  },
+  beforeCreate() {
+    //do something before creating vue instance
+    
+  },
+  created() {
+    //do something after creating vue instance
     this.getUser()
- },
- mounted(){
+
+  },
+  beforeMount() {
+    //do something before creating vue instance
+    
+  },
+  mounted() {
+    //do something after mounting vue instance
     this.getNotes()
- }
+
+  },
+  beforeUpdate() {
+    //do something before updating vue instance
+    
+  },
+  updated() {
+    //do something after updating vue instance
+    
+  },
+  beforeDestroy() {
+    //do something before destroying vue instance
+    
+  },
+  destroyed() {
+    //do something after destroying vue instance
+    
+  }
 }
 </script>
 

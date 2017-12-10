@@ -34,17 +34,18 @@ function saveNote(req, res) {
 function getNotes(req, res) {
   // getting data
   let notes = []
-  notes=req.body.notes
-  // find multiples IDs in array
-  Note.find({
-    '_id': { $in: notes}
-  }, (err, returnedNotes) => {
-    if (err) {
-      console.log(err)
-    }
-    console.log(returnedNotes)
-    return res.status(200).send({
-      notes: returnedNotes
+  userCtrl.getUserNotes(req.body.userId).then((notesArray) => {
+    notes = notesArray
+    // find multiples IDs in array
+    Note.find({
+      '_id': { $in: notes}
+    }, (err, returnedNotes) => {
+      if (err) {
+        console.log(err)
+      }
+      return res.status(200).send({
+        notes: returnedNotes
+      })
     })
   })
 }
