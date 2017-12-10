@@ -118,7 +118,6 @@ function saveNoteToUser(noteId, userId) {
       // setting new note to user array on DB
       User.saveNote(user.id, noteId, function(err, userUpdated) {
         if(err) return console.log(err);
-        console.log(userUpdated)
         return userUpdated
       });
       
@@ -153,10 +152,33 @@ function getUser(req, res) {
     }
   })
 }
+function getUserNotes(userId) {
+  return new Promise((resolve, reject) => {
+    //search user on DB
+    User.findById(userId, (err, user) => {
+      // case if there is any problem in search
+      if (err) {
+        console.log(`Error: ${err}`)
+        reject({ message: `Error al buscar: ${err}` })
+      }
+      // case if user is not found on DB
+      if (!user) {
+        console.log("No existe el usuario")
+        reject({ message: 'Algunos de los datos introducidos son incorrectos.'} )
+      }
+      // case if user found
+      if (user) {
+        // send user notes
+        resolve (user.notes)
+      }
+    })
+  });
+}
 
 module.exports = {
   signUp,
   signIn,
   saveNoteToUser,
-  getUser
+  getUser,
+  getUserNotes
 }

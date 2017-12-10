@@ -70,7 +70,6 @@
           }
         })
         .catch(error => {
-          console.log(error.status);
           if (error.status === 401) {
             this.negative_message = "Algunos de los datos introducidos no son correctos."
             this.toggle_negative = true
