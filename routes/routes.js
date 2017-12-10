@@ -11,6 +11,7 @@ api.get('/private', auth)
 // USER
 api.post('/signup', userCtrl.signUp)
 api.post('/signin', userCtrl.signIn)
+api.post('/getUser', userCtrl.getUser)
 // NOTES
 api.post('/saveNote', noteCtrl.saveNote)
 api.post('/getNotes', noteCtrl.getNotes)
