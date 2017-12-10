@@ -52,7 +52,7 @@ export default {
       .then(response => {
         if(response.status === 200) {
           this.toggle= true
-          authUser.data = response.data.user
+          authUser.id = response.data.user.id
           authUser.token = response.data.token
           window.localStorage.setItem('authUser', JSON.stringify(authUser))
           setTimeout(() => {
