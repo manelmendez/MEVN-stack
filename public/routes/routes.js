@@ -45,6 +45,10 @@ const router = new VueRouter({
       component: About
     },
     {
+      path: '/logout',
+      meta: { logout: true }
+    },
+    {
       path: '/404',
       name: 'Error404',
       component: Error404
@@ -81,6 +85,11 @@ router.beforeEach((to, from, next) => {
     else {
       next()
     }
+  }
+  // method to not allow a user to go to certain pages once logged
+  else if (to.meta.logout) {
+    window.localStorage.removeItem('authUser')
+    next({name:'Welcome'})
   }
   else {
     next()
