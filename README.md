@@ -14,12 +14,14 @@ NodeJS server app with VueJS as frontEnd
 
  1. Install server and client dependencies 
  
-	> - **On MEVN-stack folder:**     
-	>  $`npm install`
+	> - **On MEVN-stack folder:**
+	>
+	>  	$`npm install`
 	> 
-	> - **Then** 
-	>  $`cd public`  
-	>  $`npm install`
+	> - **Then**
+	>
+	>  	$`cd public`  
+	>  	$`npm install`
 
  2. Run NodeJS Server
 	> **On MEVN-stack folder:**     
