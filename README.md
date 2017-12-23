@@ -26,9 +26,11 @@ NodeJS server app with VueJS as frontEnd
  2. Run NodeJS Server
 	> **On MEVN-stack folder:**     
 	> $`npm start`
+	
 	> Server running in http://localhost:3000/
 	
  3. Run VueJS Client
 	> $`cd public`  
 	> $`npm start`
+	
 	> Client running in http://localhost:8080/
