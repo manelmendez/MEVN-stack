@@ -10,12 +10,5 @@ new Vue({
   router,
   components: { Welcome },
   methods: {
-    logout: function() {
-      console.log("LOGOUT")
-    }
   }
 })
-
-function logout() {
-  console.log("LOGOUT")
-}
