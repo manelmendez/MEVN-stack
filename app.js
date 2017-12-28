@@ -20,6 +20,9 @@ app.use(function(req, res, next) {
     next();
 });
 
+//la ruta a los archivos estaticos (HTML, JS, ...) una vez hecho el "build" en cliente
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use('/api',api);
 
 module.exports = app
