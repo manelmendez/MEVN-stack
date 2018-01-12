@@ -55,8 +55,7 @@ const router = new VueRouter({
     },
     {
       path: '*',
-      name: '404',
-      component: Error404
+      redirect: '/404'
     }
   ]
 })

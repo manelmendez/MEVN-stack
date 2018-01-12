@@ -20,8 +20,18 @@ app.use(function(req, res, next) {
     next();
 });
 
-//la ruta a los archivos estaticos (HTML, JS, ...) una vez hecho el "build" en cliente
+// la ruta a los archivos estaticos (HTML, JS, ...) una vez hecho el "build" en cliente
 app.use(express.static(path.join(__dirname, 'public')));
+// hay que decirle a express en que ruta estan las vistas (aunque solo hay una que es index.html en la carpeta public)
+app.set('views', path.join(__dirname, 'public'));
+// aquí le decimos que el engine que usaremos es html y que use EJS para renderizarlo
+app.engine('html', require('ejs').renderFile);
+// ahora seteamos html como view engine de express
+app.set('view engine', 'html');
+// aquí le decimos que en cualquier ruta nos renderice el index.html que es la base de todos los componentes
+app.get('*', (request, response) => {
+   response.render('index')
+})
 
 app.use('/api',api);
 
