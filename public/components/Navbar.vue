@@ -10,16 +10,17 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="/">Home <!--span class="sr-only">(current)</span--></a>
+            <router-link :to="{path: '/'}"><a class="nav-link">Home <span class="sr-only">(current)</span></a></router-link>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/signup">Sign Up</a>
+            <router-link :to="{path: '/signup'}"><a class="nav-link">Sign Up</a></router-link>
+        <!--    <a class="nav-link" href="/signup">Sign Up</a>    -->
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/signin">Sign In</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/about">About</a>
+            <router-link :to="{path: '/abou'}"><a class="nav-link">About</a></router-link>
           </li>
         </ul>
         <div class="dropdown">
@@ -28,7 +29,7 @@
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <a class="dropdown-item" href="/logout">Ajustes</a>
-            <a class="dropdown-item" href="/logout">Logout</a>
+            <router-link :to="{path: '/logout'}"><a class="dropdown-item">Logout</a></router-link>
           </div>
         </div>
       </div>
