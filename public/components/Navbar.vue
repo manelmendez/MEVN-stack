@@ -2,7 +2,7 @@
   <div id="navbar">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <img src="assets/images/favicon.ico" width="30" height="30">
-      <a class="navbar-brand" href="/">Demo de Vue</a>
+      <router-link :to="{path: '/'}" class="navbar-brand">Demo de Vue</router-link>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
       </button>
@@ -10,17 +10,17 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <router-link :to="{path: '/'}"><a class="nav-link">Home <span class="sr-only">(current)</span></a></router-link>
+            <router-link :to="{path: '/'}" class="nav-link">Home</router-link>
           </li>
           <li class="nav-item">
-            <router-link :to="{path: '/signup'}"><a class="nav-link">Sign Up</a></router-link>
+            <router-link :to="{path: '/signup'}" class="nav-link">Sign Up</router-link>
         <!--    <a class="nav-link" href="/signup">Sign Up</a>    -->
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/signin">Sign In</a>
+            <router-link :to="{path: '/signin'}" class="nav-link">Sign In</router-link>
           </li>
           <li class="nav-item">
-            <router-link :to="{path: '/abou'}"><a class="nav-link">About</a></router-link>
+            <router-link :to="{path: '/about'}" class="nav-link">About</router-link>
           </li>
         </ul>
         <div class="dropdown">
@@ -28,8 +28,8 @@
             Opciones
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="/logout">Ajustes</a>
-            <router-link :to="{path: '/logout'}"><a class="dropdown-item">Logout</a></router-link>
+            <router-link :to="{path: '/logout'}" class="dropdown-item">Ajustes</router-link>
+            <router-link :to="{path: '/logout'}" class="dropdown-item">Logout</router-link>
           </div>
         </div>
       </div>
@@ -41,7 +41,12 @@ export default {
   name: "navbar",
   data: () => ({
 
-  })
+  }),
+  methods: {
+    logout() {
+      console.log("FUNCTION TO LOGOUT")
+    }
+  }
 }
 </script>
 <style>

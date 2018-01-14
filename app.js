@@ -6,19 +6,24 @@ const cors = require('cors')
 const app = express()
 const api = require('./routes/routes')
 const path = require('path');
+const morgan = require('morgan');
 
+// middleware para solo parsear requires en formato urlencoded
 app.use(bodyParser.urlencoded({
   extended: false
 }))
+// middleware para solo parsear requires en formato JSON
 app.use(bodyParser.json())
+// middleware para usar CORS y su configuración (métodos que permite)
 app.use(cors())
-
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
+// middleware para obtener LOGS de cada petición que hagamos al servidor
+//app.use(morgan('dev'))
 
 // la ruta a los archivos estaticos (HTML, JS, ...) una vez hecho el "build" en cliente
 app.use(express.static(path.join(__dirname, 'public')));
