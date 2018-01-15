@@ -1,5 +1,5 @@
 <template>
-  <div class="app-content">
+  <div class="main-content">
     <div class="container-fluid h-100">        
       <div class="row h-100">
         <div class="card-group main">
@@ -180,8 +180,8 @@ export default {
 </script>
 
 <style>
-.app-content {
-  background:url(../assets/images/gplaypattern.png);
+.main-content {
+  background:url(../assets/images/fancy-pants.jpg);
   background-size: auto,cover;
   min-height: 100%;
   width: 100%;
