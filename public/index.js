@@ -2,8 +2,10 @@ import Vue from 'vue'
 import App from './components/App.vue'
 import vueResource from 'vue-resource'
 import router from './routes/routes'
+import BootstrapVue from 'bootstrap-vue';
 
 Vue.use(vueResource)
+Vue.use(BootstrapVue)
 
 new Vue({
   el: '#app',

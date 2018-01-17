@@ -181,7 +181,7 @@ export default {
 
 <style>
 .main-content {
-  background:url(../assets/images/fancy-pants.jpg);
+  background:url(../assets/images/dimension.png);
   background-size: auto,cover;
   min-height: 100%;
   width: 100%;

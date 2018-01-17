@@ -174,11 +174,25 @@ function getUserNotes(userId) {
     })
   });
 }
+function getAllUsers(req, res) {
+  User.find({},(err, users) => {
+    // case if there is any problem in search
+    if (err) {
+      console.log(`Error: ${err}`)
+    }
+    if (users) {
+      res.status(200).send({
+        users: users
+      })
+    }
+  })
+}
 
 module.exports = {
   signUp,
   signIn,
   saveNoteToUser,
   getUser,
-  getUserNotes
+  getUserNotes,
+  getAllUsers
 }

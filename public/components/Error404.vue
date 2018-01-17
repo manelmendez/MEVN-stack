@@ -34,7 +34,7 @@
 }
 .block {
   background-color: rgba(355, 355, 355, 0.6);
-  border-radius: 5%;
+  border-radius: 40px;
   padding-left: 10%;
   padding-right: 10%;
   padding-top: 15%;
