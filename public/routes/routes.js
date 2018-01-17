@@ -5,6 +5,8 @@ import SignUp from '../components/SignUp.vue'
 import MainPage from '../components/MainPage.vue'
 import About from '../components/About.vue'
 import Error404 from '../components/Error404.vue'
+import UserList from '../components/UserList.vue';
+
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
 
@@ -43,6 +45,11 @@ const router = new VueRouter({
       path: '/about',
       name: 'About',
       component: About
+    },
+    {
+      path: '/userlist',
+      name: 'UserList',
+      component: UserList
     },
     {
       path: '/logout',

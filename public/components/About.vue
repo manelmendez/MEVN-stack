@@ -1,5 +1,5 @@
 <template>
-  <div class="app-content">
+  <div class="about-content">
     <div class="container-fluid">
       <div class="row justify-content-md-center">
         <div class="col-6 elements">
@@ -24,7 +24,7 @@
 </script>
 
 <style>
-.app-content {
+.about-content {
   background:url(../assets/images/wallpaper.jpg);
   background-size:cover;
   width: 100%;
@@ -35,11 +35,11 @@
 }
 .block {
   background-color: rgba(355, 355, 355, 0.6);
-  border-radius: 5%;
+  border-radius: 40px;
   padding-left: 10%;
   padding-right: 10%;
-  padding-top: 15%;
-  padding-bottom: 15%;
+  padding-top: 10%;
+  padding-bottom: 10%;
 }
 .copyright {
   font-size: 10px;
