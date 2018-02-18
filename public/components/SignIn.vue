@@ -1,14 +1,14 @@
 <template>
-  <div class="app-content">
+  <div class="signin-content">
     <div class="container-fluid">
       <div class="row justify-content-md-center">
-        <div class="col-3 elements">
+        <div class="col signin-elements">
           <div id="flash_alert" ref="flash_alert" v-show="toggle" class="alert alert-success animated flipInX" role="alert">
             Te has logueado correctamente!
           </div>
           <div id="negative_flash_alert" ref="negative_flash_alert" v-show="toggle_negative" class="alert alert-danger animated flipInX" role="alert" v-html="negative_message">
           </div>
-          <div class="block" :class="{'border border-danger': toggle_negative, 'border border-success': toggle}">
+          <div class="signin-block" :class="{'border border-danger': toggle_negative, 'border border-success': toggle}">
             <div class="form-group">
               <label for="email">Introduce tu email</label>
               <input type="email" class="form-control" v-model="email" aria-describedby="email" placeholder="Email">
@@ -92,16 +92,16 @@ export default {
 </script>
 
 <style>
-.app-content {
+.signin-content {
   background:url(../assets/images/wallpaper.jpg);
   background-size:cover;
   width: 100%;
   min-height:100%;
-  position:fixed;
+  position: fixed;
   align-items: center;
   align-content: center;
 }
-.block {
+.signin-block {
   background-color: rgba(355, 355, 355, 0.6);
   border-radius: 5%;
   padding-left: 10%;
@@ -109,7 +109,10 @@ export default {
   padding-top: 15%;
   padding-bottom: 15%;
 }
-.elements {
+.signin-elements {
   margin-top: 5%;
+  margin-bottom: 5%;
+  margin-left: 35%;
+  margin-right: 35%;
 }
 </style>
