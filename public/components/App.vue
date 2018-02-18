@@ -16,5 +16,9 @@ import Navbar from './Navbar0.vue'
 </script>
 
 <style>
-
+  .app{
+    min-height: 100%;
+    height: 100%;
+    position: relative;
+  }
 </style>

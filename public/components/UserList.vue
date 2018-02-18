@@ -7,7 +7,6 @@
           <b-btn :disabled="!filter" @click="filter = ''">Clear</b-btn>
         </b-input-group-button>
       </div>
-      <div class="dropdown-divider"></div>
       <!-- User Interface controls -->
       <b-table outlined striped hover small :filter="filter" :fields="fields" :items="items" :current-page="currentPage"
              :per-page="perPage" @filtered="onFiltered"></b-table>

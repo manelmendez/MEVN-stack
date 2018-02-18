@@ -1,9 +1,9 @@
 <template>
   <div class="about-content">
     <div class="container-fluid">
-      <div class="row justify-content-md-center">
-        <div class="col-6 elements">
-          <div class="block">
+      <b-row class="justify-content-md-center">
+        <b-col class="about-elements">
+          <div class="about-block">
             <h1 class="display-3">About</h1>
             <p class="lead">Página creada por Manel Méndez</p>
             <hr class="my-4">
@@ -13,8 +13,8 @@
               Copyright (c) 2017 Manel Méndez. MIT License.
             </p>
           </div>
-        </div>
-      </div>
+        </b-col>
+      </b-row>
     </div>
   </div>
 </template>
@@ -29,11 +29,11 @@
   background-size:cover;
   width: 100%;
   min-height:100%;
-  position:fixed;
+  position:relative;
   align-items: center;
   align-content: center;
 }
-.block {
+.about-block {
   background-color: rgba(355, 355, 355, 0.6);
   border-radius: 40px;
   padding-left: 10%;
@@ -44,7 +44,10 @@
 .copyright {
   font-size: 10px;
 }
-.elements {
+.about-elements {
   margin-top: 5%;
+  margin-bottom: 5%;
+  margin-left: 25%;
+  margin-right: 25%;
 }
 </style>

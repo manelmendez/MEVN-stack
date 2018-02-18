@@ -9,10 +9,10 @@
     <b-collapse is-nav id="nav_collapse">
 
       <b-navbar-nav>
-        <b-nav-item><router-link :to="{path: '/'}" class="nav-link">Home</router-link></b-nav-item>
-        <b-nav-item><router-link :to="{path: '/signup'}" class="nav-link">Sign Up</router-link></b-nav-item>
-        <b-nav-item><router-link :to="{path: '/signin'}" class="nav-link">Sign In</router-link></b-nav-item>
-        <b-nav-item><router-link :to="{path: '/about'}" class="nav-link">About</router-link></b-nav-item>
+        <b-nav-item><router-link :to="{path: '/'}" class="nav-link linked">Home</router-link></b-nav-item>
+        <b-nav-item><router-link :to="{path: '/signup'}" class="nav-link linked">Sign Up</router-link></b-nav-item>
+        <b-nav-item><router-link :to="{path: '/signin'}" class="nav-link linked">Sign In</router-link></b-nav-item>
+        <b-nav-item><router-link :to="{path: '/about'}" class="nav-link linked">About</router-link></b-nav-item>
       </b-navbar-nav>
 
       <!-- Right aligned nav items -->
@@ -66,4 +66,11 @@ export default {
 }
 </script>
 <style>
+.navbar-brand {  
+  font-family: 'Monoton', cursive;
+}
+
+.linked {
+  font-family: "Raleway", sans-serif;
+}
 </style>
