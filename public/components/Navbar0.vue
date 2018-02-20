@@ -10,8 +10,8 @@
 
       <b-navbar-nav>
         <b-nav-item><router-link :to="{path: '/'}" class="nav-link linked">Home</router-link></b-nav-item>
-        <b-nav-item><router-link :to="{path: '/signup'}" class="nav-link linked">Sign Up</router-link></b-nav-item>
-        <b-nav-item><router-link :to="{path: '/signin'}" class="nav-link linked">Sign In</router-link></b-nav-item>
+        <b-nav-item v-show="!toggle"><router-link :to="{path: '/signup'}" class="nav-link linked">Sign Up</router-link></b-nav-item>
+        <b-nav-item v-show="!toggle"><router-link :to="{path: '/signin'}" class="nav-link linked">Sign In</router-link></b-nav-item>
         <b-nav-item><router-link :to="{path: '/about'}" class="nav-link linked">About</router-link></b-nav-item>
       </b-navbar-nav>
 
@@ -35,8 +35,8 @@
           <template slot="button-content">
             <em>User</em>
           </template>
-          <router-link :to="{path: '/logout'}"><b-dropdown-item>Profile</b-dropdown-item></router-link>
-          <router-link :to="{path: '/logout'}"><b-dropdown-item>Signout</b-dropdown-item></router-link>
+          <b-dropdown-item>Profile</b-dropdown-item>
+          <b-dropdown-item v-on:click="signOut()">Signout</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-collapse>
@@ -48,20 +48,30 @@ export default {
   name: "navbar",
   data(){
     return {
-      authUser: JSON.parse(window.localStorage.getItem('authUser')),
-      toggle: false
+      toggle: this.checkIfIsLogged()
     }
   },
   methods: {
-    getUser: function() {
-      if (this.authUser) {
-        this.toggle = true;
+    checkIfIsLogged() {
+      let authUser = JSON.parse(window.localStorage.getItem('authUser'))
+      if (authUser) {
+        return true
       }
+      else {
+        return false
+      }
+    },
+    signOut() {
+      window.localStorage.removeItem('authUser')
+      this.toggle = false
+      this.$router.push('/')
     }
   },
   created() {
     //do something after creating vue instance
-    this.getUser();
+    this.$bus.$on('logged', () => {
+      this.toggle = this.checkIfIsLogged()
+    })
   }
 }
 </script>
