@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import Navbar from './Navbar0.vue'
+import Navbar from './NavbarV2.vue'
   export default {
     components: {
       Navbar
@@ -19,6 +19,5 @@ import Navbar from './Navbar0.vue'
   .app{
     min-height: 100%;
     height: 100%;
-    position: relative;
   }
 </style>

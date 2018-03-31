@@ -34,7 +34,7 @@ function saveNote(req, res) {
 function getNotes(req, res) {
   // getting data
   let notes = []
-  userCtrl.getUserNotes(req.body.userId).then((notesArray) => {
+  userCtrl.getUserNotes(req.params.id).then((notesArray) => {
     notes = notesArray
     // find multiples IDs in array
     Note.find({

@@ -8,7 +8,7 @@
           </div>
           <div id="negative_flash_alert" ref="negative_flash_alert" v-show="toggle_negative" class="alert alert-danger animated flipInX" role="alert" v-html="negative_message">
           </div>
-          <div class="signup-block" :class="{'border border-danger': toggle_negative, 'border border-success': toggle}">
+          <div class="signup-block rounded" :class="{'border border-danger': toggle_negative, 'border border-success': toggle}">
             <div class="form-group">
               <label for="username">Introduce tu nombre de usuario</label>
               <input type="text" class="form-control" v-model="username" aria-describedby="text" placeholder="Username">
@@ -53,7 +53,7 @@
         let headers = {
           'Content-Type': 'application/json'
         }
-        this.$http.post('http://localhost:3000/api/signup', body, headers)
+        this.$axios.post('signup', body, headers)
         .then(response => {
           if(response.status === 200) {
             this.toggle= true
@@ -109,7 +109,6 @@
 }
 .signup-block {
   background-color: rgba(355, 355, 355, 0.6);
-  border-radius: 5%;
   padding-left: 15%;
   padding-right: 15%;
   padding-top: 15%;

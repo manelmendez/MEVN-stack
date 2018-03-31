@@ -8,7 +8,7 @@
           </div>
           <div id="negative_flash_alert" ref="negative_flash_alert" v-show="toggle_negative" class="alert alert-danger animated flipInX" role="alert" v-html="negative_message">
           </div>
-          <div class="signin-block" :class="{'border border-danger': toggle_negative, 'border border-success': toggle}">
+          <div class="signin-block rounded" :class="{'border border-danger': toggle_negative, 'border border-success': toggle}">
             <div class="form-group">
               <label for="email">Introduce tu email</label>
               <input type="email" class="form-control" v-model="email" aria-describedby="email" placeholder="Email">
@@ -48,7 +48,7 @@ export default {
       let headers = {
         'Content-Type': 'application/json'
       }
-      this.$http.post('http://localhost:3000/api/signin', body, headers)
+      this.$axios.post('signin', body, headers)
       .then(response => {
         if(response.status === 200) {
           this.toggle= true
@@ -104,7 +104,6 @@ export default {
 }
 .signin-block {
   background-color: rgba(355, 355, 355, 0.6);
-  border-radius: 5%;
   padding-left: 10%;
   padding-right: 10%;
   padding-top: 15%;

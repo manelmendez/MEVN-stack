@@ -8,8 +8,10 @@ function isAuth(req, res, next) {
       message: 'No tienes autorización'
     })
   }
-
-  const token = req.headers.authorization
+  // extract 'Bearer' from Auth header 
+  const tokenBearer = req.get("authorization")
+  let arr = tokenBearer.split(" ")
+  const token = arr[1]
   tokenServices.decodeToken(token)
     .then(response => {
       req.user = response
@@ -24,4 +26,38 @@ function isAuth(req, res, next) {
     })
 }
 
-module.exports = isAuth
+function checkAuth(req, res, next) {
+  console.log("Comprobando header Authorization");
+    if (!req.headers.authorization) {
+      console.log("No existe");
+      return res.status(401).send({
+        message: 'No tienes autorización'
+      })
+    }
+    // extract 'Bearer' from Auth header 
+    const tokenBearer = req.get("authorization")
+    let arr = tokenBearer.split(" ")
+    const token = arr[1]
+    tokenServices.decodeToken(token)
+    .then((response) => {
+      if (response) {
+        console.log(response);
+        console.log("Está autorizado");
+        next()
+      }
+      else{
+        console.log("AAAAAA");
+      }
+    })
+    .catch(reject => {
+      console.log("No está autorizado");
+      return res.status(401).send({
+        message: 'No tienes autorización'
+      })
+    })
+}
+
+module.exports = {
+  isAuth,
+  checkAuth
+}

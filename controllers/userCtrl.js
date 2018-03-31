@@ -125,7 +125,7 @@ function saveNoteToUser(noteId, userId) {
   })
 }
 function getUser(req, res) {
-  let userId = req.body.userId
+  let userId = req.params.id
   //search user on DB
   User.findById(userId, (err, user) => {
     // case if there is any problem in search
@@ -144,6 +144,7 @@ function getUser(req, res) {
     }
     // case if user found
     if (user) {
+      console.log(user);
       // send user
       res.status(200).send({
         message: 'Datos obtenidos correctamente',

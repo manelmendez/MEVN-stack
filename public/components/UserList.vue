@@ -1,12 +1,12 @@
 <template>
   <div id="userList-content">
     <div class="container-fluid list-container">
-      <div class="col-4 input-group">
+      <b-col class="input-group">
         <b-form-input v-model="filter" placeholder="Type to Search" />
         <b-input-group-button>
           <b-btn :disabled="!filter" @click="filter = ''">Clear</b-btn>
         </b-input-group-button>
-      </div>
+      </b-col>
       <!-- User Interface controls -->
       <b-table outlined striped hover small :filter="filter" :fields="fields" :items="items" :current-page="currentPage"
              :per-page="perPage" @filtered="onFiltered"></b-table>
@@ -35,16 +35,16 @@ export default {
   }),
   methods: {
     getAllUsers: function() {
-      this.$http.post('http://localhost:3000/api/getAllUsers')
+      this.$axios.get('getAllUsers')
       .then((response) => {
         this.items = []
-        console.log(response.body.users);
-        for (let i = 0; i < response.body.users.length; i++) {
+        console.log(response.data.users);
+        for (let i = 0; i < response.data.users.length; i++) {
           let item = {
-            name: response.body.users[i].name,
-            email: response.body.users[i].email,
-            signup_date: response.body.users[i].signupDate,
-            notes: response.body.users[i].notes.length
+            name: response.data.users[i].name,
+            email: response.data.users[i].email,
+            signup_date: response.data.users[i].signupDate,
+            notes: response.data.users[i].notes.length
           }
           this.items.push(item);
         }
@@ -71,7 +71,7 @@ export default {
   background-size: auto,cover;
   min-height: 100%;
   width: 100%;
-  position: absolute;
+  position: fixed;
 }
 .list-container {
   background: white;
