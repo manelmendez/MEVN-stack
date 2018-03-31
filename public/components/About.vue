@@ -25,11 +25,11 @@
 
 <style>
 .about-content {
-  background:url(../assets/images/wallpaper.jpg);
-  background-size:cover;
+  background:url(../assets/images/dimension.png);
+  background-size: auto,cover;
   width: 100%;
   min-height:100%;
-  position:relative;
+  position: relative;
   align-items: center;
   align-content: center;
 }

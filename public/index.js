@@ -1,16 +1,23 @@
 import Vue from 'vue'
 import App from './components/App.vue'
-import vueResource from 'vue-resource'
 import router from './routes/routes'
 import BootstrapVue from 'bootstrap-vue'
 import Vuex from 'vuex';
 import EventBus from './components/events/EventBus'
+import axios from 'axios'
+import constants from './assets/constants/constants'
 
-Vue.use(vueResource)
 Vue.use(BootstrapVue)
 Vue.use(Vuex)
 
 Vue.prototype.$bus = EventBus
+Vue.prototype.$axios = axios.create()
+Vue.prototype.$axios.defaults.baseURL = constants.LOCAL_ADDRESS
+// add token to Auth header if onceLogged
+if (JSON.parse(window.localStorage.getItem('authUser'))!= null)
+{
+  Vue.prototype.$axios.defaults.headers.common['Authorization'] = 'Bearer '+JSON.parse(window.localStorage.getItem('authUser')).token
+}
 
 new Vue({
   el: '#app',

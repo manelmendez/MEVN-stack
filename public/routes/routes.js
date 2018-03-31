@@ -7,11 +7,12 @@ import About from '../components/About.vue'
 import Error404 from '../components/Error404.vue'
 import UserList from '../components/UserList.vue';
 
+import constants from '../assets/constants/constants'
+
 import VueRouter from 'vue-router'
-import VueResource from 'vue-resource'
+import axios from 'axios'
 
 Vue.use(VueRouter)
-Vue.use(VueResource)
 
 const router = new VueRouter({
   mode: 'history',
@@ -93,18 +94,14 @@ router.beforeEach((to, from, next) => {
   }
 })
 function isAuth(authUser) {
-  let body = authUser.userId
-  let headers = {
-    'Authorization': authUser.token
-  }
-  let options = {
-    body,
-    headers
-  }
-  Vue.http.get('http://localhost:3000/api/private', options)
+  axios.post(constants.LOCAL_ADDRESS+'private', null)
   .then(response => {
     if(response.status === 200) {
       console.log("Autorizado")
+    }
+    else if (response.status === 202) {
+      console.log("Autenticado pero no autorizado")
+      router.push({ path: "/userPage" })
     }
   })
   .catch(error => {

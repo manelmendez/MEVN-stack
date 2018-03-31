@@ -7,6 +7,8 @@ const app = express()
 const api = require('./routes/routes')
 const path = require('path');
 const morgan = require('morgan');
+const helmet = require('helmet')
+const history = require('connect-history-api-fallback')
 
 // middleware para solo parsear requires en formato urlencoded
 app.use(bodyParser.urlencoded({
@@ -25,6 +27,12 @@ app.use(function(req, res, next) {
 // middleware para obtener LOGS de cada petición que hagamos al servidor
 //app.use(morgan('dev'))
 
+// SEGURIDAD, helmet protege de varias cosas sobretodo en temas de cabeceras HTTP
+app.use(helmet())
+
+// middleware para que las rutas estaticas de la SPA funcionen bien (esto es "por culpa" del HISTORY MODE de VueJS)
+app.use(history())
+
 // la ruta a los archivos estaticos (HTML, JS, ...) una vez hecho el "build" en cliente
 app.use(express.static(path.join(__dirname, 'public')));
 // hay que decirle a express en que ruta estan las vistas (aunque solo hay una que es index.html en la carpeta public)
@@ -34,9 +42,9 @@ app.engine('html', require('ejs').renderFile);
 // ahora seteamos html como view engine de express
 app.set('view engine', 'html');
 // aquí le decimos que en cualquier ruta nos renderice el index.html que es la base de todos los componentes
-app.get('*', (request, response) => {
-   response.render('index')
-})
+// app.get('*', (request, response) => {
+//    response.render('index')
+// })
 
 app.use('/api',api);
 

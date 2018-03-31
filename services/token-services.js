@@ -1,38 +1,48 @@
 'use strict'
 
-const jwt = require('jwt-simple')
+const jwt = require('jsonwebtoken')
 const moment = require('moment')
 const config = require('../config')
 
 function createToken(user) {
+  const userData = {
+    email: user.email,
+    id: user._id
+  }
   const payload = {
-    sub: user._id,
+    sub: userData,
     iat: moment().unix(),
     exp: moment().add(14, 'days').unix()
   }
-  return jwt.encode(payload, config.SECRET_TOKEN)
+  return jwt.sign(payload, config.SECRET_TOKEN)
+  // return jwt.sign(payload, config.SECRET_TOKEN, {expiresIn: "14 days"})
 }
 
 function decodeToken(token) {
-  const decoded = new Promise((resolve, reject) => {
-    try {
-      const payload = jwt.decode(token, config.SECRET_TOKEN)
-      if (payload.exp <= moment().unix()) {
+  return new Promise((resolve, reject) => {
+    jwt.verify(token, config.SECRET_TOKEN, (err, payload) => {
+      if (payload) {
+        if (payload.exp <= moment().unix()) {
+          console.log("Token expirado")
+          reject({
+            status: 401,
+            message: 'El token ha expirado'
+          })
+        }
+        else{
+          console.log("Token válido")
+          resolve(payload.sub)
+        }
+      }
+      if (err) {
+        console.log("Token inválido")
         reject({
-          status: 401,
-          message: 'El token ha expirado'
+          status: 500,
+          message: 'Invalid Token'
         })
       }
-      resolve(payload.sub)
-    } catch (err) {
-      reject({
-        status: 500,
-        message: 'Invalid Token'
-      })
-    }
+    })
   })
-
-  return decoded;
 }
 
 module.exports = {

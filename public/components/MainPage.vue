@@ -1,7 +1,7 @@
 <template>
   <div class="main-content">
-    <div class="container-fluid h-100">        
-      <div class="row h-100">
+    <div class="container-fluid">        
+      <div class="row">
         <div class="card-group main">
           <div class="card profile col-md-3">
             <img class="card-img-top" :src=user.avatar alt="Card image cap">
@@ -18,9 +18,9 @@
                 <p>No hay notas</p>
               </div>
               <ul id="noteList" class="list-group" v-show="toggle">
-                <li class="list-group-item" data-toggle="collapse"v-for="note in noteList" :data-target='"#"+ note._id'><b>{{ note.title }}</b>
+                <li id="tittle" class="list-group-item" data-toggle="collapse"v-for="note in noteList" :data-target='"#"+ note._id'><b>{{ note.title }}</b>
                   <div class="collapse" :id="note._id">
-                    <div class="card card-body">
+                    <div id="description" class="card card-body animated rollIn">
                       {{ note.description }}                  
                     </div>
                   </div>
@@ -82,25 +82,14 @@ export default {
   },
   methods:{
     getUser: function() {
-      let body = {
-        userId: this.authUser.id
-      }
-      let headers = {
-        'Content-Type': 'application/json'
-      }
-      this.$http.post('http://localhost:3000/api/getUser', body, headers)
+      this.$axios.get('getUser/'+this.authUser.id)
       .then((response) => {
-        this.user = response.body.user
+        console.log(response.data);
+        this.user = response.data.user
       })
     },
     getNotes: function() {
-      let body = {
-        userId: this.authUser.id
-      }
-      let headers = {
-        'Content-Type': 'application/json'
-      }
-      this.$http.post('http://localhost:3000/api/getNotes', body, headers)
+      this.$axios.get('getNotes/'+this.authUser.id)
       .then(response => {
         this.noteList=response.body.notes
         if ((this.noteList!=null)&&(this.noteList.length>0)) {
@@ -124,7 +113,7 @@ export default {
         let headers = {
           'Content-Type': 'application/json'
         }
-        this.$http.post('http://localhost:3000/api/saveNote', body, headers)
+        this.$axios.post('saveNote', body, headers)
         .then(response => {
           // añade los campos a la lista de notas
           this.noteList.push({
@@ -185,12 +174,13 @@ export default {
   background-size: auto,cover;
   min-height: 100%;
   width: 100%;
-  position: absolute;
+  position: relative;
 }
 .main {
   margin-top: 5%;
   width: 100%;
   justify-content: center;
+  margin-bottom: 5%;
 }
 .addButton {
   position: relative;
@@ -202,5 +192,11 @@ export default {
 }
 .list-group-item {
   cursor: pointer;
+  background-color: #f2f2f2;
+}
+#description {
+  margin: 2%;
+  border: 0;
+  background-color: rgba(255, 255, 255, 0.45);
 }
 </style>
