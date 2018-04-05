@@ -6,7 +6,9 @@ import Vuex from 'vuex';
 import EventBus from './components/events/EventBus'
 import axios from 'axios'
 import constants from './assets/constants/constants'
+import GSignInButton from 'vue-google-signin-button'
 
+Vue.use(GSignInButton)
 Vue.use(BootstrapVue)
 Vue.use(Vuex)
 

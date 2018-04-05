@@ -13,7 +13,8 @@ function signUp(req, res) {
   const user = new User({
     email: req.body.email,
     name: req.body.name,
-    password: req.body.password
+    password: req.body.password,
+    provider: 'local'
   })
   // check if user exists in database
   User.findOne({ email: user.email }, function(err, existingUser) {

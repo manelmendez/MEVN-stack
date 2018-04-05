@@ -68,6 +68,7 @@
 </template>
 
 <script>
+const user=""
 export default {
   //props: ['user'],      if using props
   data(){
@@ -77,7 +78,7 @@ export default {
       noteList:[],
       newTitle: "",
       newDescription: "",
-      user: ""
+      user:user
     }
   },
   methods:{
@@ -131,39 +132,15 @@ export default {
       }
     }
   },
-  beforeCreate() {
-    //do something before creating vue instance
-    
-  },
   created() {
     //do something after creating vue instance
     this.getUser()
 
   },
-  beforeMount() {
-    //do something before creating vue instance
-    
-  },
   mounted() {
     //do something after mounting vue instance
     this.getNotes()
 
-  },
-  beforeUpdate() {
-    //do something before updating vue instance
-    
-  },
-  updated() {
-    //do something after updating vue instance
-    
-  },
-  beforeDestroy() {
-    //do something before destroying vue instance
-    
-  },
-  destroyed() {
-    //do something after destroying vue instance
-    
   }
 }
 </script>
