@@ -13,6 +13,8 @@ const UserSchema = new Schema({
   },
   name: String,
   avatar: String,
+  provider: String,
+  provider_id: String,
   password: {
     type: String
     //select: false       if I dont want to get the pw when Find() on database
@@ -32,20 +34,22 @@ const UserSchema = new Schema({
 UserSchema.pre('save', function(next) {
   let user = this
   //if (!user.isModified('password')) return next()
+  if(!user.avatar) {
+    //add avatar to User
+    user.avatar = user.gravatar();
 
-  //add avatar to User
-  user.avatar = user.gravatar();
-
-  bcrypt.genSalt(10, (err, salt) => {
-    if (err) return next(err)
-
-    bcrypt.hash(user.password, salt, null, (err, hash) => {
+    bcrypt.genSalt(10, (err, salt) => {
       if (err) return next(err)
 
-      user.password = hash
-      next()
+      bcrypt.hash(user.password, salt, null, (err, hash) => {
+        if (err) return next(err)
+
+        user.password = hash
+        next()
+      })
     })
-  })
+  }
+  next()
 })
 
 /**

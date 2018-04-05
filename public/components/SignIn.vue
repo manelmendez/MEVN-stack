@@ -19,6 +19,24 @@
               <input type="password" class="form-control" v-model="password" placeholder="Password">
             </div>
             <button type="submit" class="btn btn-info btn-lg btn-block" v-on:click="signIn()">Iniciar sesión</button>
+            <br></br>
+            <button class="btn btn btn-block facebookButton" @click="authenticate('facebook')">
+              <i class="fab fa-facebook-square"></i>
+              Inicia sesión con Facebook
+            </button>
+            <!-- <button class="btn btn btn-block googleButton" @click="authenticate('google')">
+              <i class="fab fa-google-plus-square"></i>
+              Inicia sesión con Google
+            </button> -->
+            <template>
+            <g-signin-button class="btn btn btn-block googleButton"
+              :params="googleSignInParams"
+              @success="onSignInSuccess"
+              @error="onSignInError">
+              <i class="fab fa-google-plus-square"></i>
+              Inicia sesión con Google
+            </g-signin-button>
+          </template>
           </div>
         </div>
       </div>
@@ -35,10 +53,44 @@ export default {
     password: '',
     toggle: false,
     toggle_negative: false,
-    negative_message: "La contraseña es incorrecta."
+    negative_message: "La contraseña es incorrecta.",
+    googleSignInParams: {
+        client_id: '386200234053-2agcjupnifhntml508a1ivfnetvm8o9i.apps.googleusercontent.com'
+      }
     }
   },
   methods: {
+    onSignInSuccess (googleUser) {
+      const authUser = {}
+      // `googleUser` is the GoogleUser object that represents the just-signed-in user.
+      // See https://developers.google.com/identity/sign-in/web/reference#users
+      // Useful data for your client-side scripts:
+      var profile = googleUser.getBasicProfile();
+      // The ID token you need to pass to your backend:
+      var id_token = googleUser.getAuthResponse().id_token;
+      let headers = {
+        'Authorization': 'Bearer '+id_token
+      }
+      this.$axios.get('oauth/google',{headers})
+      .then(response => {
+        if(response.status === 200) {
+          this.toggle= true
+          authUser.id = response.data.user._id
+          authUser.token = response.data.token
+          window.localStorage.setItem('authUser', JSON.stringify(authUser))
+          setTimeout(() => {
+            this.$bus.$emit('logged', 'User logged')
+            this.$router.push({ 
+              name: "MainPage" //si uso path: "/mainpage" el params (props) no funciona -- params: { user: response.data.user } --
+            })
+          }, 2000);
+        }
+      })
+    },
+    onSignInError (error) {
+      // `error` contains any error occurred.
+      console.log('OH NOES', error)
+    },
     signIn() {
       const authUser = {}
       let body = {
@@ -114,5 +166,14 @@ export default {
   margin-bottom: 5%;
   margin-left: 35%;
   margin-right: 35%;
+}
+.facebookButton {
+  background-color: #4862a3;
+  color: #ffffff;
+}
+.googleButton {
+  background-color: #dd4c3a;
+  color: #ffffff;
+  cursor: pointer;
 }
 </style>
